@@ -27,26 +27,27 @@ print(ciphertext)
 
 ### Question 2 ################################################################################
 
-def roll(d_type):
-    output = 0
-    amount, die = d_type.split("d")
-    for i in range(int(amount)):
-        if die == '100':
-            output += ((randint(1,int(die)) + 9) // 10) * 10
-        elif die == '10':
-            output += randint(0,int(die)-1)
-        else:
-            output += randint(1,int(die))
-    return output
-
+class Dice:
+    def roll(self, d_type, r_count=1):
+        amount, die = d_type.split("d")
+        amount = amount or '1'
+        output = int(die) if r_count < 0 else 0
+        for i in range(abs(r_count)):
+            total = 0
+            for i in range(int(amount)):
+                total += randint(1,int(die))
+                output = min(output, total) if r_count < 0 else max(output, total)
+        return output
+        
+dice = Dice()
 count = 10
 for i in range(3):
     print(count)
-    print("    4: ", roll(f'{count}d4')/count)
-    print("    6: ", roll(f'{count}d6')/count)
-    print("    8: ", roll(f'{count}d8')/count)
-    print("    10: ", roll(f'{count}d10')/count)
-    print("    12: ", roll(f'{count}d12')/count)
-    print("    20: ", roll(f'{count}d20')/count)
-    print("    100: ", roll(f'{count}d100')/count)
+    print("    4: ", dice.roll(f'{count}d4')/count)
+    print("    6: ", dice.roll(f'{count}d6')/count)
+    print("    8: ", dice.roll(f'{count}d8')/count)
+    print("    10: ", dice.roll(f'{count}d10')/count)
+    print("    12: ", dice.roll(f'{count}d12')/count)
+    print("    20: ", dice.roll(f'{count}d20')/count)
+    print("    100: ", dice.roll(f'{count}d100')/count)
     count *= 10
