@@ -48,5 +48,5 @@ for i in range(3):
     print("    10: ", roll(f'{count}d10')/count)
     print("    12: ", roll(f'{count}d12')/count)
     print("    20: ", roll(f'{count}d20')/count)
-    print("    100: ", roll(f'{count}d4')/count)
+    print("    100: ", roll(f'{count}d100')/count)
     count *= 10
